@@ -1,0 +1,8 @@
+data:
+  source: "training.csv"
+  parent_data_dir: Text
+  model_dir: model
+  init_model_file: init_model.h5
+  trained_model_file: trained_model.h5
+
+params:
