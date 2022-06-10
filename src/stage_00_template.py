@@ -5,6 +5,7 @@ from tqdm import tqdm
 import logging
 from src.utils.common import read_yaml, create_directories
 from src.utils.Logs import Logger
+from cc_Exception.exception import RaiseException
 import random
 
 Logger.logg()
@@ -12,7 +13,10 @@ Logger.logg()
 STAGE = "STAGE 0"  
 
 def main(config_path, params_path):
-    ## read config files
+
+    '''
+    Reading config files
+    '''
     config = read_yaml(config_path)
     params = read_yaml(params_path)
     pass
@@ -31,4 +35,4 @@ if __name__ == '__main__':
         logging.info(f">>>>> stage {STAGE} completed!<<<<<\n")
     except Exception as e:
         logging.exception(e)
-        raise e
+        raise Exception(RaiseException(e,sys)) from e
