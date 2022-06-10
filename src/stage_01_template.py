@@ -19,7 +19,10 @@ Logger.logg()
 def main(config_path, params_path):
     ## read config files
     try:
-            
+        '''
+        reading the csv file and sending it to Raw folder path
+        selecting the required columns and saving it on processed folder 
+        '''    
         logging.info(" ***** Stage 02 started ***** ")
         
         config = read_yaml(config_path)
@@ -33,8 +36,6 @@ def main(config_path, params_path):
 
         df = pd.read_csv("Reviews.csv", sep = ",")
         
-        #check with OS, pathlib, shutil
-        # df.to_csv(raw_data_dir, index=False)
         shutil.copyfile("Reviews.csv", os.path.join(raw_data_dir,"reviews.csv"))
         
         data_file = config["data"]["data_file"]
@@ -51,27 +52,12 @@ def main(config_path, params_path):
         create_directories([processed_data])
         print(processed_data+'Reviews.csv')
         data.to_csv(os.path.join(processed_data,'Review.csv'), index=False)
-        # shutil.copyfile(os.path.join(processed_data), os.path.join(raw_data_dir,"reviews.csv"))
-
-        # df = pd.read_csv(raw_data)
-        # train,test = train_test_split(df, test_size = test_size, random_state = random_state)
         
-        # train.to_csv("data/processed_data/train.csv", index=False)
-        # test.to_csv("data/processed_data/test.csv", index=False)
-
-        # x = train(['time'],['user'])
-        # y = train(['tweet'])
-                
-        # kfold = StratifiedKFold(n_splits=3,shuffle=True,random_state=11)
-        # #data['target'] IS THE VARIABLE USED FOR STRATIFIED SAMPLING.
-        # splits = kfold.split(x,y)
-       
         logging.info(" ***** Stage 02 ended ***** ")
     except Exception as e:
         logging.exception(e)
         raise Exception(RaiseException(e,sys)) from e
-        # raise Exception(e)
-
+        
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
